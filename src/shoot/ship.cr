@@ -1,6 +1,6 @@
 module Shoot
   class Ship
-    property :sprite
+    property sprite
 
     SPEED = 10
 

@@ -6,6 +6,4 @@
 
 require "./shoot/game"
 
-module Shoot
-  Game.run
-end
+Shoot::Game.new.run
