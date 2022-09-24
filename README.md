@@ -1,7 +1,5 @@
 # shoot
 
-TODO: Write a description here
-
 ## Installation
 
 [install SFML](https://github.com/oprypin/crsfml#install-sfml)
