@@ -1,27 +1,22 @@
 require "./game_window"
-require "./ship"
-require "./hud"
+require "./scene/manager"
 
 module Shoot
   class Game < GameWindow
-    getter ship
-    getter hud
+    getter manager
 
     def initialize
       super
 
-      @ship = Ship.new(screen_height: window.size.y)
-      @hud = HUD.new(ship: ship, screen_width: window.size.x, screen_height: window.size.y)
+      @manager = Scene::Manager.new(screen_width: window.size.x, screen_height: window.size.y)
     end
 
     def update(frame_time)
-      ship.update(frame_time)
-      hud.update(frame_time)
+      manager.update(frame_time)
     end
 
     def draw(window)
-      ship.draw(window)
-      hud.draw(window)
+      manager.draw(window)
     end
   end
 end
