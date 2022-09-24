@@ -10,10 +10,31 @@ TODO: Write a description here
 shards install
 ```
 
+### Windows
+
+if compiling/installing from Windows, please clone [`crsfml`](https://github.com/oprypin/crsfml)
+in the same directory you have this repo, so:
+
+```
+C:\some_dir\code
+C:\some_dir\code\crsfml
+C:\some_dir\code\shoot
+
+```
+
+because for Windows, `shards install` the `make` part doesn't execute correctly, so I am requiring
+`crsfml` relatively for windows, instead of the normal shard usage.
+
 ## Usage
 
 ```
 make
+```
+
+for release
+
+```
+make release
 ```
 
 ## Contributing

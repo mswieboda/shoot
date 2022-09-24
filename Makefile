@@ -1,5 +1,5 @@
 SHELL = /bin/sh
-CC = /usr/bin/time crystal build
+CC = crystal build
 BUILD_DIR = build
 OUT_FILE = ${BUILD_DIR}/shoot
 SOURCE_FILES = src/shoot.cr
@@ -7,7 +7,9 @@ SOURCE_FILES = src/shoot.cr
 build_and_test: clean test
 
 clean:
+ifneq ($(OS),Windows_NT)
 	if [ ! -d "./${BUILD_DIR}" ]; then mkdir "${BUILD_DIR}"; else env echo "cleaning..." && rm -r ${BUILD_DIR}; mkdir "${BUILD_DIR}"; fi
+endif
 
 build_test:
 	${CC} ${SOURCE_FILES} -o ${OUT_FILE}_test.o --error-trace

@@ -1,4 +1,9 @@
-require "crsfml"
+{% if flag?(:win32) %}
+  require "../../crsfml/src/crsfml"
+{% else %}
+  require "crsfml"
+{% end %}
+
 
 mode = SF::VideoMode.new(1024, 780)
 window = SF::RenderWindow.new(mode, "shoot")
