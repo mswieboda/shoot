@@ -4,7 +4,7 @@ module Shoot
     getter clock : SF::Clock
 
     def initialize
-      @window = SF::RenderWindow.new(SF::VideoMode.desktop_mode, "shoot")
+      @window = SF::RenderWindow.new(SF::VideoMode.desktop_mode, "shoot", SF::Style::None)
       window.vertical_sync_enabled = true
 
       @clock = SF::Clock.new
