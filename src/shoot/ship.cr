@@ -6,21 +6,24 @@ module Shoot
     property sprite
     property lasers
     property fire_timer
+    property fire_sound
 
     Speed = 15
     FireDuration = 100.milliseconds
+    Texture = SF::Texture.from_file("./assets/ship.png")
+    FireSound = SF::SoundBuffer.from_file("./assets/laser.wav")
 
     def initialize(screen_height)
-      texture = SF::Texture.from_file("./assets/ship.png")
-
-      @sprite = SF::Sprite.new(texture)
-      @sprite.origin = texture.size / 2.0
+      @sprite = SF::Sprite.new(Texture)
+      @sprite.origin = Texture.size / 2.0
       @sprite.scale = SF.vector2(1, 1)
-      @sprite.position = SF.vector2(250, screen_height - texture.size.y / 2.0 - texture.size.y)
+      @sprite.position = SF.vector2(250, screen_height - Texture.size.y / 2.0 - Texture.size.y)
 
       @lasers = [] of Laser
 
       @fire_timer = Timer.new(FireDuration)
+      @fire_sound = SF::Sound.new
+      @fire_sound.buffer = FireSound
     end
 
     def update(frame_time)
@@ -47,6 +50,7 @@ module Shoot
     def fire
       return if fire_timer.started? && !fire_timer.done?
 
+      @fire_sound.play
       lasers << Laser.new(sprite.position.x, sprite.position.y)
 
       fire_timer.restart
