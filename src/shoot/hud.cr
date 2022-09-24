@@ -13,13 +13,13 @@ module Shoot
       @screen_width = screen_width
       @screen_height = screen_height
 
-      @text = SF::Text.new("bullets: 0", Font, 24)
+      @text = SF::Text.new("lasers: 0", Font, 24)
       @text.fill_color = SF::Color::Green
       @text.position = SF.vector2(Margin, Margin)
     end
 
     def update(frame_time)
-      @text.string = "bullets #{ship.bullets.size}"
+      @text.string = "lasers #{ship.lasers.size}"
     end
 
     def draw(window : SF::RenderWindow)

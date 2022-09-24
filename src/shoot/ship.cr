@@ -1,11 +1,14 @@
-require "./bullet"
+require "./laser"
+require "./timer"
 
 module Shoot
   class Ship
     property sprite
-    property bullets
+    property lasers
+    property fire_timer
 
-    SPEED = 10
+    Speed = 15
+    FireDuration = 100.milliseconds
 
     def initialize(screen_height)
       texture = SF::Texture.from_file("./assets/ship.png")
@@ -15,30 +18,38 @@ module Shoot
       @sprite.scale = SF.vector2(1, 1)
       @sprite.position = SF.vector2(250, screen_height - texture.size.y / 2.0 - texture.size.y)
 
-      @bullets = [] of Bullet
+      @lasers = [] of Laser
+
+      @fire_timer = Timer.new(FireDuration)
     end
 
     def update(frame_time)
       if SF::Keyboard.key_pressed?(SF::Keyboard::Left)
-        sprite.move(-SPEED, 0)
+        sprite.move(-Speed, 0)
       elsif SF::Keyboard.key_pressed?(SF::Keyboard::Right)
-        sprite.move(SPEED, 0)
+        sprite.move(Speed, 0)
       end
 
-      if SF::Keyboard.key_pressed?(SF::Keyboard::X)
-        bullets << Bullet.new(sprite.position.x, sprite.position.y)
-      end
+      fire if SF::Keyboard.key_pressed?(SF::Keyboard::X)
 
-      bullets.each(&.update(frame_time))
-      bullets.select(&.remove?).each do |bullet|
-        bullets.delete(bullet)
+      lasers.each(&.update(frame_time))
+      lasers.select(&.remove?).each do |laser|
+        lasers.delete(laser)
       end
     end
 
     def draw(window : SF::RenderWindow)
-      bullets.each(&.draw(window))
+      lasers.each(&.draw(window))
 
       window.draw(sprite)
+    end
+
+    def fire
+      return if fire_timer.started? && !fire_timer.done?
+
+      lasers << Laser.new(sprite.position.x, sprite.position.y)
+
+      fire_timer.restart
     end
   end
 end

@@ -1,21 +1,21 @@
 module Shoot
-  class Bullet
+  class Laser
     property? remove
     property sprite
 
-    SPEED = 10
+    Speed = 30
 
     def initialize(x, y)
-      texture = SF::Texture.from_file("./assets/ship.png")
+      texture = SF::Texture.from_file("./assets/laser.png")
 
       @sprite = SF::Sprite.new(texture)
       @sprite.origin = texture.size / 2.0
-      @sprite.scale = SF.vector2(0.25, 0.25)
+      @sprite.scale = SF.vector2(1, 1)
       @sprite.position = SF.vector2(x, y)
     end
 
     def update(frame_time)
-      sprite.move(0, -SPEED)
+      sprite.move(0, -Speed)
 
       if sprite.position.y <= 0
         @remove = true
