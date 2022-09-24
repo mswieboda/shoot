@@ -4,13 +4,13 @@ module Shoot
 
     SPEED = 10
 
-    def initialize
+    def initialize(screen_y)
       texture = SF::Texture.from_file("./assets/ship.png")
 
       @sprite = SF::Sprite.new(texture)
       @sprite.origin = texture.size / 2.0
       @sprite.scale = SF.vector2(1, 1)
-      @sprite.position = SF.vector2(250, 300)
+      @sprite.position = SF.vector2(250, screen_y - texture.size.y / 2.0 - texture.size.y)
     end
 
     def update(frame_time)

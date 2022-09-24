@@ -8,7 +8,7 @@ module Shoot
     def initialize
       super
 
-      @ship = Ship.new
+      @ship = Ship.new(screen_y: window.size.y)
     end
 
     def update(frame_time)
