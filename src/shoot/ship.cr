@@ -26,14 +26,14 @@ module Shoot
       @fire_sound.buffer = FireSound
     end
 
-    def update(frame_time)
-      if SF::Keyboard.key_pressed?(SF::Keyboard::Left)
+    def update(frame_time, keys)
+      if keys.pressed?(Keys::Left)
         sprite.move(-Speed, 0)
-      elsif SF::Keyboard.key_pressed?(SF::Keyboard::Right)
+      elsif keys.pressed?(Keys::Right)
         sprite.move(Speed, 0)
       end
 
-      fire if SF::Keyboard.key_pressed?(SF::Keyboard::X)
+      fire if keys.pressed?(Keys::X)
 
       lasers.each(&.update(frame_time))
       lasers.select(&.remove?).each do |laser|

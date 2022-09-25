@@ -1,3 +1,5 @@
+require "./font"
+
 module Shoot
   class HUD
     getter ship : Ship
@@ -5,7 +7,6 @@ module Shoot
     getter screen_height : Int32
     getter text
 
-    Font = SF::Font.from_file("./assets/PressStart2P.ttf")
     Margin = 10
 
     def initialize(ship, screen_width, screen_height)
@@ -13,7 +14,7 @@ module Shoot
       @screen_width = screen_width
       @screen_height = screen_height
 
-      @text = SF::Text.new("lasers: 0", Font, 24)
+      @text = SF::Text.new("lasers: 0", Font.default, 24)
       @text.fill_color = SF::Color::Green
       @text.position = SF.vector2(Margin, Margin)
     end
