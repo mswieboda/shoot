@@ -32,6 +32,7 @@ winpack: clean ${OUT_FILE}.o
 ifeq ($(OS),Windows_NT)
 	copy run.bat ${BUILD_DIR}
 	copy "${SFML_DLL_DIR}\\*.dll" ${BUILD_DIR}
+	xcopy /E assets ${BUILD_DIR}\\assets\\
 	rename ${BUILD_DIR} shoot
 	7z a -tzip -mx9 shoot\\shoot.zip shoot\\*
 	rename shoot ${BUILD_DIR}
