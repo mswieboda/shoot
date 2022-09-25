@@ -1,30 +1,13 @@
-require "./game_window"
-require "./scene/manager"
+require "./stage"
 
 module Shoot
-  class Game < GameWindow
+  class Game < GSF::Game
     getter manager
 
     def initialize
-      super
+      super(title: "shoot")
 
-      @manager = Scene::Manager.new(screen_width: window.size.x, screen_height: window.size.y)
-    end
-
-    def update(frame_time)
-      manager.update(frame_time)
-
-      @exit = true if manager.exit?
-    end
-
-    def draw(window)
-      manager.draw(window)
-    end
-
-    def event(event)
-      super(event)
-
-      manager.event(event)
+      @stage = Stage.new
     end
   end
 end

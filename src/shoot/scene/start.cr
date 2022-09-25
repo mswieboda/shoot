@@ -1,16 +1,16 @@
-require "../menu/items"
-require "../keys"
-
 module Shoot::Scene
-  class Start < Base
+  class Start < GSF::Scene
     property? start
     getter items
 
-    def initialize(screen_width, screen_height)
-      super(screen_width, screen_height, :start)
+    def initialize
+      super(:start)
 
       @start = false
-      @items = Menu::Items.new(screen_width, screen_height, ["start", "options", "something else", "exit"])
+      @items = GSF::MenuItems.new(
+        font: Font.default,
+        labels: ["start", "options", "something else", "exit"]
+      )
     end
 
     def reset
@@ -19,19 +19,17 @@ module Shoot::Scene
       @start = false
     end
 
-    def update(frame_time, keys : Keys)
+    def update(frame_time, keys : GSF::Keys)
       items.update(frame_time, keys)
 
-      if keys.just_pressed?([Keys::Space, Keys::Enter])
-        if selected = items.selected
-          case selected
-          when "start"
-            @start = true
-          when "exit"
-            @exit = true
-          end
+      if keys.just_pressed?([GSF::Keys::Space, GSF::Keys::Enter])
+        case items.focused
+        when "start"
+          @start = true
+        when "exit"
+          @exit = true
         end
-      elsif keys.just_pressed?(Keys::Escape)
+      elsif keys.just_pressed?(GSF::Keys::Escape)
         @exit = true
       end
     end

@@ -1,7 +1,4 @@
 require "./laser"
-require "./timer"
-require "./animations"
-require "./animation"
 
 module Shoot
   class Ship
@@ -17,14 +14,14 @@ module Shoot
     Sheet = "./assets/ship.png"
     FireSound = SF::SoundBuffer.from_file("./assets/laser.wav")
 
-    def initialize(screen_height)
+    def initialize
       # sprite size
       size = 128
       @x = 250
-      @y = (screen_height - size / 2.0 - size).to_i
-      @animations = Animations.new
+      @y = (GSF::Screen.height - size / 2.0 - size).to_i
+      @animations = GSF::Animations.new
       @lasers = [] of Laser
-      @fire_timer = Timer.new(FireDuration)
+      @fire_timer = GSF::Timer.new(FireDuration)
       @fire_sound = SF::Sound.new
       @fire_sound.buffer = FireSound
 
@@ -32,12 +29,12 @@ module Shoot
       fps = 60
 
       # idle
-      idle = Animation.new((fps / 3).to_i, loops: false)
+      idle = GSF::Animation.new((fps / 3).to_i, loops: false)
       idle.add(Sheet, 0, 0, size, size)
 
       # fire animation
       fire_frames = 3
-      fire = Animation.new((fps / 25).to_i, loops: false)
+      fire = GSF::Animation.new((fps / 25).to_i, loops: false)
 
       fire_frames.times do |i|
         fire.add(Sheet, i * size, 0, size, size)
@@ -51,13 +48,13 @@ module Shoot
     def update(frame_time, keys)
       animations.update(frame_time)
 
-      if keys.pressed?(Keys::Left)
+      if keys.pressed?(GSF::Keys::Left)
         @x -= Speed
-      elsif keys.pressed?(Keys::Right)
+      elsif keys.pressed?(GSF::Keys::Right)
         @x += Speed
       end
 
-      fire if keys.pressed?(Keys::X)
+      fire if keys.pressed?(GSF::Keys::X)
 
       animations.play(:idle) if animations.name == :fire && animations.done?
 
