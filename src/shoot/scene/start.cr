@@ -10,7 +10,7 @@ module Shoot::Scene
       super(screen_width, screen_height, :start)
 
       @start = false
-      @items = Menu::Items.new(screen_width, screen_height, ["start", "exit"])
+      @items = Menu::Items.new(screen_width, screen_height, ["start", "options", "something else", "exit"])
     end
 
     def reset
@@ -20,7 +20,7 @@ module Shoot::Scene
     end
 
     def update(frame_time, keys : Keys)
-      items.update(frame_time)
+      items.update(frame_time, keys)
 
       if keys.just_pressed?([Keys::Space, Keys::Enter])
         if selected = items.selected

@@ -20,8 +20,24 @@ module Shoot::Menu
       end
     end
 
-    def update(frame_time)
+    def update(frame_time, keys : Keys)
       items.each(&.update(frame_time))
+
+      if keys.just_pressed?(Keys::Up)
+        if index = items.index(&.selected?)
+          new_index = index - 1 >= 0 ? index - 1 : items.size - 1
+
+          items[index].deselect
+          items[new_index].select
+        end
+      elsif keys.just_pressed?(Keys::Down)
+        if index = items.index(&.selected?)
+          new_index = index + 1 < items.size ? index + 1 : 0
+
+          items[index].deselect
+          items[new_index].select
+        end
+      end
     end
 
     def draw(window : SF::RenderWindow)
