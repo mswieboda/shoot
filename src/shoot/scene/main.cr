@@ -9,7 +9,7 @@ module Shoot::Scene
     def initialize
       super(:main)
 
-      @ship = Ship.new
+      @ship = Ship.new(x: 128, y: 128)
       @hud = HUD.new(ship: ship)
     end
 

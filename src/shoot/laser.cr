@@ -15,9 +15,9 @@ module Shoot
     end
 
     def update(frame_time)
-      sprite.move(0, -Speed)
+      sprite.move(Speed, 0)
 
-      if sprite.position.y <= 0
+      if sprite.position.x > GSF::Screen.width + sprite.global_bounds.width
         @remove = true
       end
     end

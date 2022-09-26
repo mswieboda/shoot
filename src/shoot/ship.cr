@@ -14,11 +14,11 @@ module Shoot
     Sheet = "./assets/ship.png"
     FireSound = SF::SoundBuffer.from_file("./assets/laser.wav")
 
-    def initialize
+    def initialize(x = 0, y = 0)
       # sprite size
       size = 128
-      @x = 250
-      @y = (GSF::Screen.height - size / 2.0 - size).to_i
+      @x = x
+      @y = y
       @animations = GSF::Animations.new
       @lasers = [] of Laser
       @fire_timer = GSF::Timer.new(FireDuration)
@@ -48,10 +48,10 @@ module Shoot
     def update(frame_time, keys : Keys)
       animations.update(frame_time)
 
-      if keys.pressed?(Keys::Left)
-        @x -= Speed
-      elsif keys.pressed?(Keys::Right)
-        @x += Speed
+      if keys.pressed?(Keys::Up)
+        @y -= Speed
+      elsif keys.pressed?(Keys::Down)
+        @y += Speed
       end
 
       fire if keys.pressed?(Keys::X)
