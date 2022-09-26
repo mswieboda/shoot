@@ -13,14 +13,14 @@ module Shoot::Scene
       @hud = HUD.new(ship: ship)
     end
 
-    def update(frame_time, keys : GSF::Keys)
-      if keys.just_pressed?(GSF::Keys::Escape)
+    def update(frame_time, keys : Keys, mouse : Mouse)
+      if keys.just_pressed?(Keys::Escape)
         @exit = true
         return
       end
 
       ship.update(frame_time, keys)
-      hud.update(frame_time)
+      hud.update(frame_time, mouse)
     end
 
     def draw(window)

@@ -2,4 +2,9 @@ require "game_sf"
 
 require "./shoot/game"
 
-Shoot::Game.new.run
+module Shoot
+  alias Keys = GSF::Keys
+  alias Mouse = GSF::Mouse
+
+  Game.new.run
+end

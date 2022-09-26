@@ -45,16 +45,16 @@ module Shoot
       animations.play(:idle)
     end
 
-    def update(frame_time, keys)
+    def update(frame_time, keys : Keys)
       animations.update(frame_time)
 
-      if keys.pressed?(GSF::Keys::Left)
+      if keys.pressed?(Keys::Left)
         @x -= Speed
-      elsif keys.pressed?(GSF::Keys::Right)
+      elsif keys.pressed?(Keys::Right)
         @x += Speed
       end
 
-      fire if keys.pressed?(GSF::Keys::X)
+      fire if keys.pressed?(Keys::X)
 
       animations.play(:idle) if animations.name == :fire && animations.done?
 

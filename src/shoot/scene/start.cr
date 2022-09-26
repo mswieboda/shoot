@@ -19,17 +19,17 @@ module Shoot::Scene
       @start = false
     end
 
-    def update(frame_time, keys : GSF::Keys)
-      items.update(frame_time, keys)
+    def update(frame_time, keys : Keys, mouse : Mouse)
+      items.update(frame_time, keys, mouse)
 
-      if keys.just_pressed?([GSF::Keys::Space, GSF::Keys::Enter])
+      if keys.just_pressed?([Keys::Space, Keys::Enter])
         case items.focused
         when "start"
           @start = true
         when "exit"
           @exit = true
         end
-      elsif keys.just_pressed?(GSF::Keys::Escape)
+      elsif keys.just_pressed?(Keys::Escape)
         @exit = true
       end
     end
