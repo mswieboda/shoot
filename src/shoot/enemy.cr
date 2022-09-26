@@ -6,8 +6,11 @@ module Shoot
     getter y : Int32
     getter animations
     property? remove
+    getter health
+    getter hit_sound
 
     Sheet = "./assets/ship.png"
+    HitSound = SF::SoundBuffer.from_file("./assets/hit.wav")
 
     delegate global_bounds, to: animations
 
@@ -16,6 +19,8 @@ module Shoot
       size = 128
       @x = x
       @y = y
+      @health = 100
+      @hit_sound = SF::Sound.new(HitSound)
 
       # init animations
       fps = 60
@@ -35,7 +40,16 @@ module Shoot
     end
 
     def hit(laser : Laser)
-      @remove = true
+      @health -= laser.damage
+
+      laser.remove = true
+
+      hit_sound.play
+
+      if @health <= 0
+        @health = 0
+        @remove = true
+      end
     end
   end
 end

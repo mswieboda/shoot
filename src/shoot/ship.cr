@@ -21,8 +21,7 @@ module Shoot
       @y = y
       @lasers = [] of Laser
       @fire_timer = GSF::Timer.new(FireDuration)
-      @fire_sound = SF::Sound.new
-      @fire_sound.buffer = FireSound
+      @fire_sound = SF::Sound.new(FireSound)
 
       # init animations
       fps = 60
@@ -78,7 +77,8 @@ module Shoot
       return if fire_timer.started? && !fire_timer.done?
 
       animations.play(:fire)
-      @fire_sound.play
+      fire_sound.play
+
       lasers << Laser.new(x, y)
 
       fire_timer.restart

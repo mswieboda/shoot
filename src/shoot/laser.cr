@@ -4,6 +4,7 @@ module Shoot
     property sprite
 
     Speed = 30
+    Damage = 10
 
     delegate global_bounds, to: sprite
 
@@ -26,6 +27,10 @@ module Shoot
 
     def draw(window : SF::RenderWindow)
       window.draw(sprite)
+    end
+
+    def damage
+      Damage
     end
   end
 end
