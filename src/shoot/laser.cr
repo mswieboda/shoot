@@ -5,6 +5,8 @@ module Shoot
 
     Speed = 30
 
+    delegate global_bounds, to: sprite
+
     def initialize(x, y)
       texture = SF::Texture.from_file("./assets/laser.png")
 

@@ -19,7 +19,6 @@ module Shoot
       size = 128
       @x = x
       @y = y
-      @animations = GSF::Animations.new
       @lasers = [] of Laser
       @fire_timer = GSF::Timer.new(FireDuration)
       @fire_sound = SF::Sound.new
@@ -40,9 +39,8 @@ module Shoot
         fire.add(Sheet, i * size, 0, size, size)
       end
 
-      animations.add(:idle, idle)
+      @animations = GSF::Animations.new(:idle, idle)
       animations.add(:fire, fire)
-      animations.play(:idle)
     end
 
     def update(frame_time, keys : Keys)

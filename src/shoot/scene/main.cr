@@ -31,7 +31,22 @@ module Shoot::Scene
 
       ship.update(frame_time, keys)
       enemies.each(&.update(frame_time))
+
+      laser_checks
+
       hud.update(frame_time, mouse)
+    end
+
+    def laser_checks
+      ship.lasers.each do |laser|
+        enemies.each do |enemy|
+          enemy.hit(laser) if enemy.global_bounds.intersects?(laser.global_bounds)
+        end
+      end
+
+      enemies.select(&.remove?).each do |enemy|
+        enemies.delete(enemy)
+      end
     end
 
     def draw(window)
