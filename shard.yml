@@ -11,7 +11,7 @@ targets:
 dependencies:
   game_sf:
     github: mswieboda/game_sf
-    version: ~> 0.1.2
+    version: ~> 0.1.3
 
 crystal: 1.5.1
 

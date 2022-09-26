@@ -48,10 +48,16 @@ module Shoot
     def update(frame_time, keys : Keys)
       animations.update(frame_time)
 
+      dy = 0
+
       if keys.pressed?(Keys::Up)
-        @y -= Speed
+        dy -= Speed
       elsif keys.pressed?(Keys::Down)
-        @y += Speed
+        dy += Speed
+      end
+
+      if y + dy > 0 && y + dy < GSF::Screen.height
+        @y += dy
       end
 
       fire if keys.pressed?(Keys::X)
