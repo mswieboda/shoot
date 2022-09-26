@@ -37,23 +37,14 @@ module Shoot
     end
 
     def draw(window : SF::RenderWindow)
-      animations.draw(window, x, y)
+      animations.draw(window, x, y, color: health_color)
       draw_health(window) if health_percent < 1
     end
 
     def draw_health(window)
       box = SF::RectangleShape.new({health_percent * Size, 3})
       box.position = {(x - Size / 2), (y - Size / 2)}
-
-      if health > 75
-        box.fill_color = SF::Color::Green
-      elsif health > 50
-        box.fill_color = SF::Color::Yellow
-      elsif health > 25
-        box.fill_color = SF::Color.new(255, 128, 0)
-      else
-        box.fill_color = SF::Color::Red
-      end
+      box.fill_color = health_color
 
       window.draw(box)
     end
@@ -62,9 +53,20 @@ module Shoot
       health / MaxHealth
     end
 
+    def health_color
+      if health > 75
+        SF::Color::Green
+      elsif health > 50
+        SF::Color::Yellow
+      elsif health > 25
+        SF::Color.new(255, 128, 0)
+      else
+        SF::Color::Red
+      end
+    end
+
     def hit(laser : Laser)
       @health -= laser.damage
-
       laser.remove = true
 
       hit_sound.play
