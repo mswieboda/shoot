@@ -23,7 +23,7 @@ module Shoot::Scene
       items.update(frame_time, keys, mouse)
 
       # if keys.just_pressed?([Keys::Space, Keys::Enter])
-      if joysticks.just_pressed?(0_u32, [1_u32, 2_u32, 3_u32, 4_u32, 5_u32])
+      if joysticks.just_pressed?([Joysticks::A, Joysticks::B, Joysticks::X, Joysticks::Y])
         case items.focused
         when "start"
           @start = true
