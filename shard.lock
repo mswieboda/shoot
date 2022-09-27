@@ -5,6 +5,6 @@ shards:
     version: 2.5.2
 
   game_sf:
-    path: ../game_sf
-    version: 0.3.1
+    git: https://github.com/mswieboda/game_sf.git
+    version: 0.4.0
 
