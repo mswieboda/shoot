@@ -19,10 +19,11 @@ module Shoot::Scene
       @start = false
     end
 
-    def update(frame_time, keys : Keys, mouse : Mouse)
+    def update(frame_time, keys : Keys, mouse : Mouse, joysticks : Joysticks)
       items.update(frame_time, keys, mouse)
 
-      if keys.just_pressed?([Keys::Space, Keys::Enter])
+      # if keys.just_pressed?([Keys::Space, Keys::Enter])
+      if joysticks.just_pressed?(0_u32, [1_u32, 2_u32, 3_u32, 4_u32, 5_u32])
         case items.focused
         when "start"
           @start = true
