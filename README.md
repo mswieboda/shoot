@@ -10,39 +10,27 @@ shards install
 
 ### Windows
 
-if compiling/installing from Windows, please clone [`crsfml`](https://github.com/oprypin/crsfml)
-in the same directory you have this repo, so:
-
-```
-C:\some_dir\code
-C:\some_dir\code\crsfml
-C:\some_dir\code\shoot
-
-```
-
-because for Windows, `shards install` the `make` part doesn't execute correctly, so I am requiring
-`crsfml` relatively for windows, instead of the normal shard usage.
+if compiling/installing from Windows, please follow [`game_sf`](https://github.com/mswieboda/game_sf) windows instructions
 
 ## Usage
+
+for quick testing:
 
 ```
 make
 ```
 
-for release
+for release:
 
 ```
 make release
 ```
 
-## Contributing
+for windows zip:
 
-1. Fork it (<https://github.com/mswieboda/shoot/fork>)
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+```
+make winpack
+```
 
-## Contributors
+creates windows release build, and zips up assets, `run.bat` (bascially the .exe) to `build/shoot.zip`
 
-- [Matt Swieboda](https://github.com/mswieboda) - creator and maintainer
