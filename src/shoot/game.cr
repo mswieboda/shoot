@@ -7,7 +7,7 @@ module Shoot
     def initialize
       super(title: "shoot")
 
-      @stage = Stage.new
+      @stage = Stage.new(window)
     end
   end
 end

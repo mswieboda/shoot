@@ -1,8 +1,9 @@
+require "./ship_base"
 require "./font"
 
 module Shoot
   class HUD
-    getter ship : Ship
+    getter ship : ShipBase
     getter text
 
     Margin = 10

@@ -1,22 +1,22 @@
 module Shoot::Scene
   class Start < GSF::Scene
-    property? start
+    getter start_scene : Symbol?
     getter items
 
     def initialize
       super(:start)
 
-      @start = false
+      @start_scene = nil
       @items = GSF::MenuItems.new(
         font: Font.default,
-        labels: ["start", "options", "something else", "exit"]
+        labels: ["horizontal", "freedom", "options", "exit"]
       )
     end
 
     def reset
       super
 
-      @start = false
+      @start_scene = nil
     end
 
     def update(frame_time, keys : Keys, mouse : Mouse, joysticks : Joysticks)
@@ -24,11 +24,13 @@ module Shoot::Scene
 
       # TODO: refactor this to some just_pressed?(:action) etc pattern per scene
       #       with defined input config per scene
-      if keys.just_pressed?([Keys::Space, Keys::Enter])
-        || joysticks.just_pressed?([Joysticks::A, Joysticks::B, Joysticks::X, Joysticks::Y])
+      if keys.just_pressed?([Keys::Space, Keys::Enter]) ||
+         joysticks.just_pressed?([Joysticks::A, Joysticks::B, Joysticks::X, Joysticks::Y])
         case items.focused
-        when "start"
-          @start = true
+        when "horizontal"
+          @start_scene = :horizontal
+        when "freedom"
+          @start_scene = :freedom
         when "exit"
           @exit = true
         end

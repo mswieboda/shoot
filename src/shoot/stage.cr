@@ -1,16 +1,19 @@
 require "./scene/start"
-require "./scene/main"
+require "./scene/horizontal"
+require "./scene/freedom"
 
 module Shoot
   class Stage < GSF::Stage
     property start
-    property main
+    property horizontal
+    property freedom
 
-    def initialize
-      super
+    def initialize(window : SF::Window)
+      super(window)
 
       @start = Scene::Start.new
-      @main = Scene::Main.new
+      @horizontal = Scene::Horizontal.new
+      @freedom = Scene::Freedom.new(window)
 
       @scene = start
     end
@@ -18,9 +21,13 @@ module Shoot
     def check_scenes
       case scene.name
       when :start
-        @exit = true if scene.exit?
-        switch(main) if start.start?
-      when :main
+        if scene.exit?
+          @exit = true
+        elsif start_scene = start.start_scene
+          switch(horizontal) if start_scene == :horizontal
+          switch(freedom) if start_scene == :freedom
+        end
+      when :horizontal, :freedom
         switch(start) if scene.exit?
       end
     end

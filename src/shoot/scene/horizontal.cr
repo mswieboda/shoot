@@ -1,17 +1,17 @@
-require "../ship"
+require "../ship_horizontal"
 require "../hud"
 require "../enemy"
 
 module Shoot::Scene
-  class Main < GSF::Scene
+  class Horizontal < GSF::Scene
     getter ship
     getter hud
     getter enemies
 
     def initialize
-      super(:main)
+      super(:horizontal)
 
-      @ship = Ship.new(x: 128, y: 128)
+      @ship = ShipHorizontal.new(x: 128, y: 128)
       @hud = HUD.new(ship: ship)
       @enemies = [] of Enemy
 
